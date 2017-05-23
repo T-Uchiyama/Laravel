@@ -40,3 +40,21 @@ use Illuminate\Http\Request;
         $task->delete();
         return redirect('/');
     });
+
+Auth::routes();
+
+
+// Authentication Routes...
+$this->get('admin/login', 'AdminAuth\AuthController@showLoginForm');
+$this->post('admin/login', 'AdminAuth\AuthController@login');
+$this->get('admin/logout', 'AdminAuth\AuthController@logout');
+// Registration Routes...
+$this->get('admin/register', 'AdminAuth\AuthController@showRegistrationForm');
+$this->post('admin/register', 'AdminAuth\AuthController@register');
+// Password Reset Routes...
+$this->get('admin/password/reset/{token?}', 'AdminAuth\PasswordController@showResetForm');
+$this->post('admin/password/email', 'AdminAuth\PasswordController@sendResetLinkEmail');
+$this->post('admin/password/reset', 'AdminAuth\PasswordController@reset');
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin/home', 'AdminHomeController@index');
