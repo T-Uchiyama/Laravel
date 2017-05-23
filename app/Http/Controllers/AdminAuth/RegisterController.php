@@ -27,7 +27,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/home';
+    protected $linkRequestView = 'adminAuth.passwords.email';
+    protected $resetView = 'adminAuth.passwords.reset';
+    protected $guard = 'admin';
+    protected $broker = 'admins';
 
     /**
      * Create a new controller instance.
@@ -36,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:admin');
     }
 
     /**
@@ -66,6 +70,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'remember_token' => str_random(10),
         ]);
     }
 

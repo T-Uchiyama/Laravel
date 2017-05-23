@@ -25,7 +25,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/home';
+    protected $linkRequestView = 'adminAuth.passwords.email';
+    protected $resetView = 'adminAuth.passwords.reset';
+    protected $guard = 'admin';
+    protected $broker = 'admins';
 
     /**
      * Create a new controller instance.
@@ -46,7 +50,7 @@ class LoginController extends Controller
     {
         return \Auth::guard('admin');
     }
-    
+
     public function logout(Request $request)
     {
         $this->guard()->logout();

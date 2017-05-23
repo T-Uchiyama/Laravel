@@ -27,14 +27,14 @@ class ForgotPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:admin');
     }
 
     public function showLinkRequestForm()
     {
         return view('adminAuth.passwords.email');
     }
-    
+
     public function broker()
     {
         return \Password::broker('admin');
