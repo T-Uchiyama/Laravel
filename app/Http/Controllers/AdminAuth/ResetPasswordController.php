@@ -36,4 +36,14 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    protected function guard()
+    {
+        return \Auth::guard('admin');
+    }
+    
+    public function broker()
+    {
+        return \Password::broker('admins');
+    }
 }

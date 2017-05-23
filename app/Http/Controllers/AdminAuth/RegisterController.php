@@ -68,4 +68,14 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function showRegistrationForm()
+    {
+        return view('adminAuth.register');
+    }
+
+    protected function guard()
+    {
+        return \Auth::guard('admin');
+    }
 }

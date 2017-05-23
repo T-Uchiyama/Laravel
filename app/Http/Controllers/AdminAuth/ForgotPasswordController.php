@@ -29,4 +29,14 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function showLinkRequestForm()
+    {
+        return view('adminAuth.passwords.email');
+    }
+    
+    public function broker()
+    {
+        return \Password::broker('admin');
+    }
 }
