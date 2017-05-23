@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => ['web']], function () {
+
     Route::get('/', function () {
         return view('tasks', [
             'tasks' => Task::orderBy('created_at', 'asc')->get()
@@ -40,12 +40,3 @@ Route::group(['middleware' => ['web']], function () {
         $task->delete();
         return redirect('/');
     });
-
-    // Route::get('/', 'LoginController@index')->name('login.index');
-    // Route::post('/', 'LoginController@authenticate')->name('login.login');
-    // Route::match(['get', 'post'], 'logout', 'LoginController@logout')->name('login.logout');
-    // // Admin画面
-    // Route::get('admin', 'AdminController@index')->name('admin.index');
-    // // User画面
-    // Route::get('user', 'UserController@index')->name('user.index');
-});
