@@ -79,3 +79,7 @@ $this->post('articles/create', 'ArticlesController@postCreate');
 $this->get('articles/edit/{id}', 'ArticlesController@getEdit');
 $this->post('articles/edit/{id}', 'ArticlesController@postEdit');
 $this->post('articles/delete/{id}', 'ArticlesController@postDelete');
+
+
+// Home_Avatar
+Route::post('/upload', 'HomeController@upload');
