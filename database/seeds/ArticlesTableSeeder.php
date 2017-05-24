@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class ArticlesTableSeeder extends Seeder
 {
@@ -11,6 +12,11 @@ class ArticlesTableSeeder extends Seeder
      */
     public function run()
     {
-      echo get_class($this) . "\n"; // 自分のクラス名をecho
+        DB::table('articles')->insert([
+            'title' => 'Anonymous',
+            'body' => 'Hello, world!',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
     }
 }
