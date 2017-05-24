@@ -66,6 +66,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('article') }}">Article</a></li>
+                            <li><a href="{{ route('task') }}">Task</a></li>
                         @endif
                     </ul>
                 </div>

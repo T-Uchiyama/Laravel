@@ -13,11 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-    Route::get('/', function () {
+    Route::get('/', 'HomeController@index');
+
+    Route::get('/task', function () {
         return view('tasks', [
             'tasks' => Task::orderBy('created_at', 'asc')->get()
         ]);
-    });
+    })->name('task');
 
     Route::post('/task', function (Request $request) {
 
@@ -26,19 +28,19 @@ use Illuminate\Http\Request;
         ]);
 
         if ($validator->fails()) {
-            return redirect('/')
+            return redirect('/task')
             ->withInput()
             ->withErrors($validator);
         }
         $task = new Task;
         $task->name = $request->name;
         $task->save();
-        return redirect('/');
+        return redirect('/task');
     });
 
     Route::delete('/task/{task}', function (Task $task) {
         $task->delete();
-        return redirect('/');
+        return redirect('/task');
     });
 
 Auth::routes();
