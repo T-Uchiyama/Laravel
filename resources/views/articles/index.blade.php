@@ -20,10 +20,24 @@
                     <td>{{{ $article->created_at }}}</td>
                     <td>{{{ $article->updated_at }}}</td>
                     <td>
-                        <form action="{{ url('articles/show/'.$article->id)}}" method="POST" class="form-horizontal">
+                        <form action="{{ url('articles/show/'.$article->id)}}" method="GET" class="form-horizontal">
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-default">
                                 <i class="fa fa-btn fa-trash"></i>詳細
+                            </button>
+                        </form>
+
+                        <form action="{{ url('articles/edit/'.$article->id)}}" method="GET" class="form-horizontal">
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-default">
+                                <i class="fa fa-btn fa-trash"></i>編集
+                            </button>
+                        </form>
+
+                        <form action="{{ url('articles/delete/'.$article->id)}}" method="POST" class="form-horizontal">
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa fa-btn fa-trash"></i>削除
                             </button>
                         </form>
                     </td>

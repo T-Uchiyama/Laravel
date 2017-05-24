@@ -69,18 +69,44 @@ class ArticlesController extends Controller
         return redirect()->to('articles');
     }
 
-    public function getEdit()
+    /**
+     * 記事の編集
+     * @param  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getEdit($id)
     {
+        $article = $this->article->find($id);
 
+        return view('articles.edit', compact('article'));
     }
 
-    public function postEdit()
+    /**
+     * 記事の編集
+     * @param  Requset $request
+     * @param  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postEdit(Request $request, $id)
     {
+        $article = $this->article->find($id);
+        $data = $request->all();
+        $article->fill($data);
+        $article->save();
 
+        return redirect()->to('articles');
     }
 
-    public function postDelete()
+    /**
+     * 記事の削除
+     * @param  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postDelete($id)
     {
+        $article = $this->article->find($id);
+        $article->delete();
 
+        return redirect()->to('articles');
     }
 }
