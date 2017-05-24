@@ -62,7 +62,14 @@ class ArticlesController extends Controller
      */
     public function postCreate(Request $request)
     {
+        if ($request->file('file')->isValid([])) {
+            $filename = $request->file->store('public/upload');
+        } else {
+            $filename = '';
+        }
+
         $data = $request->all();
+        $data = array_merge($data, array('upload_filename' => basename($filename)));
         $this->article->fill($data);
         $this->article->save();
 

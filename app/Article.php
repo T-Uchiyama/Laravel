@@ -18,5 +18,5 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['title', 'body', 'upload_filename'];
 }
