@@ -65,18 +65,12 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li><a href="{{ route('article') }}">Article</a></li>
                         @endif
                     </ul>
                 </div>
             </div>
         </nav>
-
-        @if ( Auth::check() )
-            <p>User Login OK</p>
-        @endif
-        @if (Auth::guard('admin')->check())
-            <p>Admin Login OK</p>
-        @endif
 
         @yield('content')
     </div>
