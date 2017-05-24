@@ -23,14 +23,25 @@ class ArticlesController extends Controller
         $this->article = $article;
     }
 
+    /**
+     * 記事の一覧
+     * @return \Illuminate\View\View
+     */
     public function getIndex()
     {
-
+        $articles = $this->article->all();
+        return view('articles.index', compact('articles'));
     }
 
-    public function getShow()
+    /**
+     * 記事の詳細
+     * @param  $id
+     * @return \Illuminate\View\View
+     */
+    public function getShow($id)
     {
-
+        $article = $this->article->find($id);
+        return view('articles.show', compact('article'));
     }
 
     public function getCreate()

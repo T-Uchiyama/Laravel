@@ -70,3 +70,7 @@ $this->post('admin/password/email', 'AdminAuth\ForgotPasswordController@sendRese
 $this->get('admin/password/reset', 'AdminAuth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 $this->post('admin/password/reset', 'AdminAuth\ResetPasswordController@reset');
 $this->get('admin/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm')->name('admin.password.reset');
+
+// Article Routes...
+Route::get('/articles', 'ArticlesController@getIndex');
+$this->post('articles/show/{id}', 'ArticlesController@getShow');
