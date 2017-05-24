@@ -30,6 +30,7 @@ class ArticlesController extends Controller
     public function getIndex()
     {
         $articles = $this->article->all();
+
         return view('articles.index', compact('articles'));
     }
 
@@ -41,17 +42,31 @@ class ArticlesController extends Controller
     public function getShow($id)
     {
         $article = $this->article->find($id);
+
         return view('articles.show', compact('article'));
     }
 
+    /**
+     * 記事の投稿
+     * @return \Illuminate\View\View
+     */
     public function getCreate()
     {
-
+        return view('articles.create');
     }
 
-    public function postCreate()
+    /**
+     * 記事の投稿
+     * @param  Requset $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postCreate(Request $request)
     {
+        $data = $request->all();
+        $this->article->fill($data);
+        $this->article->save();
 
+        return redirect()->to('articles');
     }
 
     public function getEdit()

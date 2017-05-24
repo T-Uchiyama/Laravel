@@ -74,3 +74,5 @@ $this->get('admin/password/reset/{token}', 'AdminAuth\ResetPasswordController@sh
 // Article Routes...
 Route::get('/articles', 'ArticlesController@getIndex');
 $this->post('articles/show/{id}', 'ArticlesController@getShow');
+$this->get('articles/create', 'ArticlesController@getCreate');
+$this->post('articles/create', 'ArticlesController@postCreate');

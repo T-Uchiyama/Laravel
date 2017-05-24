@@ -30,5 +30,10 @@
                 </tr>
                 @endforeach
             </tbody>
+            <a href="/articles/create">
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-btn fa-trash"></i>記事作成
+                </button>
+            </a>
         </table>
 @endsection
