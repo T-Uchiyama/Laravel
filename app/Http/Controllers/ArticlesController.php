@@ -39,7 +39,7 @@ class ArticlesController extends Controller
      * @param  $id
      * @return \Illuminate\View\View
      */
-    public function getShow($id)
+    public function show($id)
     {
         $article = $this->article->find($id);
 

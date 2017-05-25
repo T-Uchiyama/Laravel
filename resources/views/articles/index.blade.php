@@ -20,7 +20,7 @@
                     <td>{{{ $article->created_at }}}</td>
                     <td>{{{ $article->updated_at }}}</td>
                     <td>
-                        <form action="{{ url('articles/show/'.$article->id)}}" method="GET" class="form-horizontal">
+                        <form action="{{ url('articles/show/'.$article->id)}}" method="POST" class="form-horizontal">
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-default">
                                 <i class="fa fa-btn fa-trash"></i>詳細
