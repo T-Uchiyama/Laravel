@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="page-header">記事投稿</h2>
+    <h1 class="heading_create">記事投稿</h1>
     {!! Form::open(['url' => '/articles/create', 'method' => 'post', 'files' => true]) !!}
     {{ csrf_field() }}
     <div class="form-group">

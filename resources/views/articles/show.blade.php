@@ -1,32 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="page-header">記事詳細</h2>
+    <h1 class="heading_show">{{{ $article->title }}}</h1>
 
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <th>タイトル</th>
-                <td>{{{ $article->title }}}</td>
-            </tr>
+    <p class="text_info">
+        <small class="text_info_created">
+            <span class="glyphicon glyphicon-calendar"></span>
+            {{ $article->created_at }}
+        </small>
+    </p>
 
-            <tr>
-                <th>本文</th>
-                <td>{{{ $article->body }}}</td>
-            </tr>
-
-            <tr>
-                <th>作成日時</th>
-                <td>{{{ $article->created_at }}}</td>
-            </tr>
-
-            <tr>
-                <th>更新日時</th>
-                <td>{{{ $article->updated_at }}}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <p class="text_main">{{ $article->body }}</p>
+    
     <div class="form-group">
         @if ($article->upload_filename)
                 <img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" />

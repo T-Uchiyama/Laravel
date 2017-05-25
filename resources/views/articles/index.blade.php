@@ -1,53 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="page-header">記事一覧</h2>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>タイトル</th>
-                    <th>本文</th>
-                    <th>作成日時</th>
-                    <th>更新日時</th>
-                </tr>
-            </thead>
 
-            <tbody>
-                @foreach($articles as $article)
-                <tr>
-                    <td>{{{ $article->title }}}</td>
-                    <td>{{{ $article->body }}}</td>
-                    <td>{{{ $article->created_at }}}</td>
-                    <td>{{{ $article->updated_at }}}</td>
-                    <td>
-                        <form action="{{ url('articles/show/'.$article->id)}}" method="POST" class="form-horizontal">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-default">
-                                <i class="fa fa-btn fa-trash"></i>詳細
-                            </button>
-                        </form>
+    <a href="{{ url('articles/create') }}">
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-btn fa-trash"></i>記事作成
+        </button>
+    </a>
 
-                        <form action="{{ url('articles/edit/'.$article->id)}}" method="GET" class="form-horizontal">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-default">
-                                <i class="fa fa-btn fa-trash"></i>編集
-                            </button>
-                        </form>
-
-                        <form action="{{ url('articles/delete/'.$article->id)}}" method="POST" class="form-horizontal">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa fa-btn fa-trash"></i>削除
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-            <a href="/articles/create">
-                <button type="submit" class="btn btn-default">
-                    <i class="fa fa-btn fa-trash"></i>記事作成
-                </button>
+    @foreach($articles as $article)
+    <article id="article_list">
+        <h1><a href="{{ url('articles/show/'.$article->id) }}">{{ $article->title }}</a></h1>
+        <ul class="post_info">
+            <li class="blog_date" style="float:left">
+                <span class="glyphicon glyphicon-calendar"> : </span>
+                <time>{!! date('Y/m/d', strtotime($article->created_at)); !!}</time>
+            </li>
+        </ul>
+        @if ($article->upload_filename)
+            <a class="post_link" href="{{ url('articles/show/'.$article->id) }}">
+                <p><img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" /></p>
             </a>
-        </table>
+        @endif
+        <p class="transition">
+            <a href="{{ url('articles/show/'.$article->id) }}">
+                本文を読む
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </p>
+        <div class="article_crud">
+            <form action="{{ url('articles/edit/'.$article->id)}}" method="GET" class="form-horizontal">
+                {{ csrf_field() }}
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-btn fa-trash"></i>編集
+                </button>
+            </form>
+
+            <form action="{{ url('articles/delete/'.$article->id)}}" method="POST" class="form-horizontal">
+                {{ csrf_field() }}
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-btn fa-trash"></i>削除
+                </button>
+            </form>
+        </div>
+    </article>
+    @endforeach
 @endsection
