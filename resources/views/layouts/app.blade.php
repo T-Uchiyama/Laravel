@@ -78,5 +78,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/laravelCommon.js') }}"></script>
 </body>
 </html>
