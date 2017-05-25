@@ -10,8 +10,8 @@
         </small>
     </p>
 
-    <p class="text_main">{{ $article->body }}</p>
-    
+    <p class="text_main">{!! nl2br($article->body) !!}</p>
+
     <div class="form-group">
         @if ($article->upload_filename)
                 <img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" />

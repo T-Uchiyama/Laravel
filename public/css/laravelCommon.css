@@ -41,6 +41,8 @@ article
     vertical-align: baseline;
     font-weight: normal;
     box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 
 #article_list
@@ -182,4 +184,11 @@ a .btn.btn-primary
 {
     display: inline-block;
     vertical-align: middle;
+}
+
+.form-group img
+{
+    width:100%;
+    max-width: 100%;
+    height: auto;
 }
