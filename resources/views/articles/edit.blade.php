@@ -16,10 +16,9 @@
 
     <div class="form-group">
         @if ($article->upload_filename)
-                <img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" />
+                <img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" value="{{ $article->upload_filename }}"/>
         @endif
     </div>
-    <!-- TODO : 削除ボタンの追加 -->
   <button type="submit" class="btn btn-default">編集</button>
 {!! Form::close() !!}
 @endsection

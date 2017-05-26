@@ -81,6 +81,7 @@ $this->post('articles/create', 'ArticlesController@postCreate');
 $this->get('articles/edit/{id}', 'ArticlesController@getEdit');
 $this->post('articles/edit/{id}', 'ArticlesController@postEdit');
 $this->post('articles/delete/{id}', 'ArticlesController@postDelete');
+$this->post('articles/imageDelete', 'ArticlesController@imageDelete');
 
 
 // Home_Avatar

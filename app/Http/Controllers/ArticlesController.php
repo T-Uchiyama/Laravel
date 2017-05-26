@@ -7,6 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Response;
+use Illuminate\Support\Facades\Input;
 
 class ArticlesController extends Controller
 {
@@ -90,7 +93,7 @@ class ArticlesController extends Controller
 
     /**
      * 記事の編集
-     * @param  Requset $request
+     * @param  Request $request
      * @param  $id
      * @return \Illuminate\Http\RedirectResponse
      */
