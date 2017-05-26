@@ -4,24 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Attachment extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'articles';
+    protected $table = 'attachments';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['model', 'filename'];
 
-    public function attachments()
+    public function articles()
     {
-        return $this->hasMany('App\Attachment', 'foreign_key');
+        return $this->belongsTo('App\Article', 'foreign_key');
     }
 }

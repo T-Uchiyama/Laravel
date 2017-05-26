@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUploadFilename extends Migration
+class CreateAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddUploadFilename extends Migration
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->string('upload_filename', 100);
+        Schema::create('attachments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('model', 20);
+            $table->integer('foreign_key');
+            $table->string('filename');
         });
     }
 
@@ -25,8 +28,6 @@ class AddUploadFilename extends Migration
      */
     public function down()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn('upload_filename');
-        });
+        Schema::dropIfExists('attachments');
     }
 }

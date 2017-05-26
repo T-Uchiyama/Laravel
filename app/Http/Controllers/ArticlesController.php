@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Attachment;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -65,14 +66,17 @@ class ArticlesController extends Controller
      */
     public function postCreate(Request $request)
     {
-        if ($request->file('file')->isValid([])) {
-            $filename = $request->file->store('public/upload');
-        } else {
-            $filename = '';
-        }
-
         $data = $request->all();
-        $data = array_merge($data, array('upload_filename' => basename($filename)));
+
+        if ($request->file('file')) {
+            $filename = $request->file->store('public/upload');
+            $attachmentData = array(
+                'model' => 'Article',
+                'filename' => basename($filename),
+            );
+            // TODO : 関連テーブルの保存方法を考える
+            // $this->article->attachments()->sync($attachmentData);
+        }
         $this->article->fill($data);
         $this->article->save();
 
