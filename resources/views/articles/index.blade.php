@@ -31,11 +31,11 @@
             </a>
         </p>
         <div class="article_crud">
-            <form action="{{ url('articles/edit/'.$article->id)}}" method="GET" class="form-horizontal">
+            <a href="{{ url('articles/edit/'.$article->id) }}">
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-btn fa-trash"></i>編集
                 </button>
-            </form>
+            </a>
 
             <form action="{{ url('articles/delete/'.$article->id)}}" method="POST" class="form-horizontal">
                 {{ csrf_field() }}

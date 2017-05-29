@@ -111,8 +111,12 @@ class ArticlesController extends Controller
     public function getEdit($id)
     {
         $article = $this->article->find($id);
+        $attachments = Attachment::where([
+            ['model', 'Article'],
+            ['foreign_key', $id],
+        ])->get();
 
-        return view('articles.edit', compact('article'));
+        return view('articles.edit', compact('article', 'attachments'));
     }
 
     /**
@@ -142,5 +146,29 @@ class ArticlesController extends Controller
         $article->delete();
 
         return redirect()->to('articles');
+    }
+    
+    /**
+     * 画像の削除を実施
+     */
+    public function imageDelete()
+    {
+        $this->autoRender = false;
+        
+        $article =  $this->article->find(Input::get('id'));
+        $attachmentData = Attachment::where([
+            ['model', 'Article'],
+            ['foreign_key', Input::get('id')],
+            ['filename', Input::get('filename')],
+        ])->get();
+        
+        // TODO :  画像の削除こそできるが全て消えてしまう。
+        $data = $article->attachments()->find($attachmentData);
+        var_dump($data);
+        exit;
+        if ($article->attachments()->find($attachmentData)->delete()) {
+            return json_encode('削除に成功しました。');
+        }
+        exit;
     }
 }

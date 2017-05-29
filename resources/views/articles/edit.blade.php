@@ -15,8 +15,11 @@
     </div>
 
     <div class="form-group">
-        @if ($article->upload_filename)
-                <img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" value="{{ $article->upload_filename }}"/>
+        @if ($attachments)
+            @foreach ($attachments as $attachment)
+                <img src="{{ asset('storage/upload/' . $attachment->filename) }}" alt="upload" value="{{ $attachment->filename }}"/>
+                <button type="button" class="btn btn-primary" id="imageDelete">画像削除</button>
+            @endforeach
         @endif
     </div>
   <button type="submit" class="btn btn-default">編集</button>
