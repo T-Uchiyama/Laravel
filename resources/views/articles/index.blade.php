@@ -17,11 +17,13 @@
                 <time>{!! date('Y/m/d', strtotime($article->created_at)); !!}</time>
             </li>
         </ul>
-        @if ($article->upload_filename)
-            <a class="post_link" href="{{ url('articles/show/'.$article->id) }}">
-                <p><img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" /></p>
-            </a>
-        @endif
+        @foreach ($attachments as $attachment)
+            @if ($attachment->foreign_key === $article->id)
+                <a class="post_link" href="{{ url('articles/show/'.$article->id) }}">
+                    <p><img src="{{ asset('storage/upload/' . $attachment->filename) }}" alt="upload" /></p>
+                </a>
+            @endif
+        @endforeach
         <p class="transition">
             <a href="{{ url('articles/show/'.$article->id) }}">
                 本文を読む
@@ -30,7 +32,6 @@
         </p>
         <div class="article_crud">
             <form action="{{ url('articles/edit/'.$article->id)}}" method="GET" class="form-horizontal">
-                {{ csrf_field() }}
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-btn fa-trash"></i>編集
                 </button>

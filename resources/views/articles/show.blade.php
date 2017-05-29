@@ -13,8 +13,10 @@
     <p class="text_main">{!! nl2br($article->body) !!}</p>
 
     <div class="form-group">
-        @if ($article->upload_filename)
-                <img src="{{ asset('storage/upload/' . $article->upload_filename) }}" alt="upload" />
+        @if ($attachments)
+            @foreach ($attachments as $attachment)
+                <img src="{{ asset('storage/upload/' . $attachment->filename) }}" alt="upload" />
+            @endforeach
         @endif
     </div>
 @endsection

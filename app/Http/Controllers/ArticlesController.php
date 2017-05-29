@@ -34,8 +34,9 @@ class ArticlesController extends Controller
     public function getIndex()
     {
         $articles = $this->article->all();
-
-        return view('articles.index', compact('articles'));
+        $attachments = Attachment::where('model', 'Article')->get();
+        
+        return view('articles.index', compact('articles', 'attachments'));
     }
 
     /**
@@ -46,8 +47,12 @@ class ArticlesController extends Controller
     public function show($id)
     {
         $article = $this->article->find($id);
-
-        return view('articles.show', compact('article'));
+        $attachments = Attachment::where([
+            ['model', 'Article'],
+            ['foreign_key', $id],
+        ])->get();
+        
+        return view('articles.show', compact('article', 'attachments'));
     }
 
     /**
@@ -67,19 +72,21 @@ class ArticlesController extends Controller
     public function postCreate(Request $request)
     {
         $data = $request->all();
-
+        $article = new Article();
+        $article->fill($data);
+        $article->save();
+        $lastInsertId = $article->id;
+        
         if ($request->file('file')) {
+            $article = Article::find($lastInsertId);
             $filename = $request->file->store('public/upload');
             $attachmentData = array(
                 'model' => 'Article',
                 'filename' => basename($filename),
             );
-            // TODO : 関連テーブルの保存方法を考える
-            // $this->article->attachments()->sync($attachmentData);
+            $article->attachments()->create($attachmentData);
         }
-        $this->article->fill($data);
-        $this->article->save();
-
+        
         return redirect()->to('articles');
     }
 
