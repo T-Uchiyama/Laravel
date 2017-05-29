@@ -36,6 +36,17 @@ class ArticlesController extends Controller
         $articles = $this->article->all();
         $attachments = Attachment::where('model', 'Article')->get();
         
+        /* サムネイルに表示するのは一件のため複数登録されたものはここでは削除 */
+        $tmp = [];
+        $uniqueArray = [];
+        foreach ($attachments as $attachment) {
+           if (!in_array($attachment['foreign_key'], $tmp)) {
+              $tmp[] = $attachment['foreign_key'];
+              $uniqueArray[] = $attachment;
+           }
+        }
+        $attachments = $uniqueArray;
+        
         return view('articles.index', compact('articles', 'attachments'));
     }
 
