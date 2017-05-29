@@ -25,15 +25,29 @@
         </div>
     @endif
 
+    <div class="upload_template">
+        <div class="form-group">
+            {!! Form::label('file', '画像アップロード', ['class' => 'control-label']) !!}
+            {!! Form::file('file[]', array('multiple'=>true)) !!}
+        </div>
+    </div>
+
     <div class="form-group">
         <label>本文</label>
         {!! Form::textarea('body', null, ['required', 'class' => 'form-control']) !!}
     </div>
 
-    <div class="form-group">
-        {!! Form::label('file', '画像アップロード', ['class' => 'control-label']) !!}
-        {!! Form::file('file') !!}
+    <div id="fileUploader">
+        <div class="form-group">
+            {!! Form::label('file', '画像アップロード', ['class' => 'control-label']) !!}
+            {!! Form::file('file[]', array('multiple'=>true)) !!}
+        </div>
     </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-default" id="AddUploadColumn">アップロード欄を追加</button>
+    </div>
+
     <button type="submit" class="btn btn-default">投稿</button>
     {!! Form::close() !!}
 @endsection

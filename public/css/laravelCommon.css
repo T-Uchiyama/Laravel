@@ -192,3 +192,9 @@ a .btn.btn-primary
     max-width: 100%;
     height: auto;
 }
+
+.upload_template
+{
+    padding: 0;
+    display: none;
+}

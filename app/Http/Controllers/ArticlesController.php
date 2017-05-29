@@ -79,12 +79,14 @@ class ArticlesController extends Controller
         
         if ($request->file('file')) {
             $article = Article::find($lastInsertId);
-            $filename = $request->file->store('public/upload');
-            $attachmentData = array(
-                'model' => 'Article',
-                'filename' => basename($filename),
-            );
-            $article->attachments()->create($attachmentData);
+            foreach ($request->file('file') as $file) {
+                $filename = $file->store('public/upload');
+                $attachmentData = array(
+                    'model' => 'Article',
+                    'filename' => basename($filename),
+                );
+                $article->attachments()->create($attachmentData);
+            }
         }
         
         return redirect()->to('articles');
