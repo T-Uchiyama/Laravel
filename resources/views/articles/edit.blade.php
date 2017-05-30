@@ -13,6 +13,12 @@
         <label>本文</label>
         {!! Form::textarea('body', $article->body, ['required', 'class' => 'form-control']) !!}
     </div>
+    
+    <div class="form-group">
+        <label>カテゴリ選択 : </label>
+        {{ Form::select('category_id', $categories, $article->category_id) }}
+    </div>
+    
     @if ($attachments)
         @foreach ($attachments as $attachment)
             <div class="form-group">

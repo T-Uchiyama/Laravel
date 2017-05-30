@@ -18,10 +18,16 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['title', 'body', 'category_id'];
 
     public function attachments()
     {
         return $this->hasMany('App\Attachment', 'foreign_key');
     }
+    
+    public function categories()
+    {
+        return $this->belongsTo('App\Category');
+    }
+    
 }

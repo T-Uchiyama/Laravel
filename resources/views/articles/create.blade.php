@@ -36,6 +36,11 @@
         <label>本文</label>
         {!! Form::textarea('body', null, ['required', 'class' => 'form-control']) !!}
     </div>
+    
+    <div class="form-group">
+        <label>カテゴリ選択 : </label>
+        {{ Form::select('category_id', $categories) }}
+    </div>
 
     <div id="fileUploader">
         <div class="form-group">

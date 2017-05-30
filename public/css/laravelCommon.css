@@ -199,3 +199,27 @@ a .btn.btn-primary
     padding: 0;
     display: none;
 }
+
+.blog_date
+{
+  display:inline-block;
+  vertical-align: middle;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.blog_category
+{
+  display:inline-block;
+  vertical-align: middle;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.blog_author
+{
+  display:inline-block;
+  vertical-align: middle;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}

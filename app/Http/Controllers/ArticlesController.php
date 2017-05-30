@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Attachment;
+use App\Category;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -46,8 +47,9 @@ class ArticlesController extends Controller
            }
         }
         $attachments = $uniqueArray;
+        $categories =  $this->createCategoryList();
         
-        return view('articles.index', compact('articles', 'attachments'));
+        return view('articles.index', compact('articles', 'attachments', 'categories'));
     }
 
     /**
@@ -62,8 +64,9 @@ class ArticlesController extends Controller
             ['model', 'Article'],
             ['foreign_key', $id],
         ])->get();
+        $categories =  $this->createCategoryList();
         
-        return view('articles.show', compact('article', 'attachments'));
+        return view('articles.show', compact('article', 'attachments', 'categories'));
     }
 
     /**
@@ -72,7 +75,9 @@ class ArticlesController extends Controller
      */
     public function getCreate()
     {
-        return view('articles.create');
+        $categories =  $this->createCategoryList();
+
+        return view('articles.create', compact('categories'));
     }
 
     /**
@@ -82,6 +87,12 @@ class ArticlesController extends Controller
      */
     public function postCreate(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'category_id' => 'required',
+        ]);
+        
         $data = $request->all();
         $article = new Article();
         $article->fill($data);
@@ -115,8 +126,9 @@ class ArticlesController extends Controller
             ['model', 'Article'],
             ['foreign_key', $id],
         ])->get();
+        $categories =  $this->createCategoryList();
 
-        return view('articles.edit', compact('article', 'attachments'));
+        return view('articles.edit', compact('article', 'attachments', 'categories'));
     }
 
     /**
@@ -170,5 +182,10 @@ class ArticlesController extends Controller
                         return Response::json('削除に成功しました。');
         }
         exit;
+    }
+    
+    public function createCategoryList()
+    {
+        return Category::pluck('categoryName', 'id');
     }
 }

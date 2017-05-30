@@ -6,7 +6,16 @@
     <p class="text_info">
         <small class="text_info_created">
             <span class="glyphicon glyphicon-calendar"></span>
-            {{ $article->created_at }}
+            :  {{ $article->created_at }}
+        </small>
+        
+        <small class="text_info_category">
+            <span class="glyphicon glyphicon-file"></span>
+            @foreach ($categories as $key => $value)
+                @if ($key === $article->category_id)
+                    : {{ $value }}
+                @endif
+            @endforeach
         </small>
     </p>
 

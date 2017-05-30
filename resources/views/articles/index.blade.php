@@ -13,8 +13,16 @@
         <h1><a href="{{ url('articles/show/'.$article->id) }}">{{ $article->title }}</a></h1>
         <ul class="post_info">
             <li class="blog_date" style="float:left">
-                <span class="glyphicon glyphicon-calendar"> : </span>
-                <time>{!! date('Y/m/d', strtotime($article->created_at)); !!}</time>
+                <span class="glyphicon glyphicon-calendar"></span>
+                <time> : {!! date('Y/m/d', strtotime($article->created_at)); !!}</time>
+            </li>
+            <li class="blog_category" style="float:left">
+                <span class="glyphicon glyphicon-file"></span>
+                @foreach ($categories as $key => $value)
+                    @if ($key === $article->category_id)
+                        : {{ $value }}
+                    @endif
+                @endforeach
             </li>
         </ul>
         @foreach ($attachments as $attachment)
