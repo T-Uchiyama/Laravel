@@ -54,10 +54,12 @@ $(function()
             dataType: 'json',
             data: {id: articleId, filename: fileName}
         })
-        .done(function() {
+        .done(function(msg) {
+            alert(msg);
             // 写真とボタンの状態をhiddenに
-            $(e.target).parent('.form-group').find('img').remove();
-            $(e.target).parent('.form-group').find('button').remove();
+            $(this).parent('.form-group').find('img').remove();
+            $(this).parent('.form-group').find('button').remove();
+            location.href = siteUrl;
             console.log("success");
         })
         .fail(function() {

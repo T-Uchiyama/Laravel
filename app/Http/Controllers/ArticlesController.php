@@ -144,6 +144,13 @@ class ArticlesController extends Controller
     {
         $article = $this->article->find($id);
         $article->delete();
+        
+        // 記事の削除を実施する際に保存されていた写真も同時削除
+        $attachments = Attachment::where([
+            ['model', 'Article'],
+            ['foreign_key', $id],
+        ])->get();
+        $article->attachments()->delete($attachments);
 
         return redirect()->to('articles');
     }
@@ -156,18 +163,11 @@ class ArticlesController extends Controller
         $this->autoRender = false;
         
         $article =  $this->article->find(Input::get('id'));
-        $attachmentData = Attachment::where([
-            ['model', 'Article'],
-            ['foreign_key', Input::get('id')],
-            ['filename', Input::get('filename')],
-        ])->get();
         
-        // TODO :  画像の削除こそできるが全て消えてしまう。
-        $data = $article->attachments()->find($attachmentData);
-        var_dump($data);
-        exit;
-        if ($article->attachments()->find($attachmentData)->delete()) {
-            return json_encode('削除に成功しました。');
+        if ($article->attachments()
+                    ->where([['model', 'Article'], ['foreign_key', Input::get('id')], ['filename', Input::get('filename')],])
+                    ->delete()) {
+                        return Response::json('削除に成功しました。');
         }
         exit;
     }

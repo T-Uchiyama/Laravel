@@ -13,15 +13,14 @@
         <label>本文</label>
         {!! Form::textarea('body', $article->body, ['required', 'class' => 'form-control']) !!}
     </div>
-
-    <div class="form-group">
-        @if ($attachments)
-            @foreach ($attachments as $attachment)
+    @if ($attachments)
+        @foreach ($attachments as $attachment)
+            <div class="form-group">
                 <img src="{{ asset('storage/upload/' . $attachment->filename) }}" alt="upload" value="{{ $attachment->filename }}"/>
                 <button type="button" class="btn btn-primary" id="imageDelete">画像削除</button>
-            @endforeach
-        @endif
-    </div>
+            </div>
+        @endforeach
+    @endif
   <button type="submit" class="btn btn-default">編集</button>
 {!! Form::close() !!}
 @endsection
