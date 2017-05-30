@@ -22,7 +22,7 @@
     <div class="form-group">
         <label>タグ選択 : </label>
         @foreach ($tags as $key => $value)
-                @if (in_array($key, $checkTagIdlist))
+                @if (!empty($checkTagIdlist) && in_array($key, $checkTagIdlist))
                     {!! Form::checkbox('tag_id[]', $key, true) !!}
                     {!! Form::label('articleTag', $value) !!}
                 @else
