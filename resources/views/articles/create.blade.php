@@ -42,6 +42,14 @@
         {{ Form::select('category_id', $categories) }}
     </div>
 
+    <div class="form-group">
+        <label>タグ選択 : </label>
+        @foreach ($tags as $key => $value)
+            {!! Form::checkbox('tag_id[]', $key) !!}
+            {!! Form::label('articleTag', $value) !!}
+        @endforeach
+    </div>
+
     <div id="fileUploader">
         <div class="form-group">
             {!! Form::label('file', '画像アップロード', ['class' => 'control-label']) !!}

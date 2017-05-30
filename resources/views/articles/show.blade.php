@@ -17,6 +17,16 @@
                 @endif
             @endforeach
         </small>
+        
+        <small class="text_info_tag">
+            <span class="glyphicon glyphicon-tags"></span> : 
+            @foreach ($tags as $tag)
+                {{ $tag->tagName }}
+                @if (!$loop->last)
+                    ,
+                @endif    
+            @endforeach
+        </small>
     </p>
 
     <p class="text_main">{!! nl2br($article->body) !!}</p>

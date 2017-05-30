@@ -19,6 +19,19 @@
         {{ Form::select('category_id', $categories, $article->category_id) }}
     </div>
     
+    <div class="form-group">
+        <label>タグ選択 : </label>
+        @foreach ($tags as $key => $value)
+                @if (in_array($key, $checkTagIdlist))
+                    {!! Form::checkbox('tag_id[]', $key, true) !!}
+                    {!! Form::label('articleTag', $value) !!}
+                @else
+                    {!! Form::checkbox('tag_id[]', $key) !!}
+                    {!! Form::label('articleTag', $value) !!}
+                @endif
+        @endforeach
+    </div>
+    
     @if ($attachments)
         @foreach ($attachments as $attachment)
             <div class="form-group">

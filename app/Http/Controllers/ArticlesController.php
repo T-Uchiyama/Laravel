@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Attachment;
 use App\Category;
+use App\Tag;
+use App\ArticleTag;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -48,8 +50,9 @@ class ArticlesController extends Controller
         }
         $attachments = $uniqueArray;
         $categories =  $this->createCategoryList();
+        $tags = $this->createTagList();
         
-        return view('articles.index', compact('articles', 'attachments', 'categories'));
+        return view('articles.index', compact('articles', 'attachments', 'categories', 'tags'));
     }
 
     /**
@@ -65,8 +68,9 @@ class ArticlesController extends Controller
             ['foreign_key', $id],
         ])->get();
         $categories =  $this->createCategoryList();
+        $tags = $article->tags()->get();
         
-        return view('articles.show', compact('article', 'attachments', 'categories'));
+        return view('articles.show', compact('article', 'attachments', 'categories', 'tags'));
     }
 
     /**
@@ -76,8 +80,9 @@ class ArticlesController extends Controller
     public function getCreate()
     {
         $categories =  $this->createCategoryList();
+        $tags = $this->createTagList();
 
-        return view('articles.create', compact('categories'));
+        return view('articles.create', compact('categories', 'tags'));
     }
 
     /**
@@ -91,6 +96,7 @@ class ArticlesController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
             'category_id' => 'required',
+            'tag_id' => 'required',
         ]);
         
         $data = $request->all();
@@ -98,6 +104,7 @@ class ArticlesController extends Controller
         $article->fill($data);
         $article->save();
         $lastInsertId = $article->id;
+        $article->tags()->sync(\Request::input('tag_id', []));
         
         if ($request->file('file')) {
             $article = Article::find($lastInsertId);
@@ -127,8 +134,14 @@ class ArticlesController extends Controller
             ['foreign_key', $id],
         ])->get();
         $categories =  $this->createCategoryList();
-
-        return view('articles.edit', compact('article', 'attachments', 'categories'));
+        $tags = $this->createTagList();
+        $checkedTags = $article->tags()->get();
+        // チェック状態判別用にタグIDの番号のみの配列を生成
+        foreach ($checkedTags as $key => $value) {
+            $checkTagIdlist[] = $value->pivot->tag_id;
+        }
+        
+        return view('articles.edit', compact('article', 'attachments', 'categories', 'tags', 'checkTagIdlist'));
     }
 
     /**
@@ -142,6 +155,7 @@ class ArticlesController extends Controller
         $article = $this->article->find($id);
         $data = $request->all();
         $article->fill($data);
+        $article->tags()->sync(\Request::input('tag_id', []));
         $article->save();
 
         return redirect()->to('articles');
@@ -184,8 +198,21 @@ class ArticlesController extends Controller
         exit;
     }
     
+    /**
+     * カテゴリ一覧を取得
+     * @return App\Category
+     */
     public function createCategoryList()
     {
         return Category::pluck('categoryName', 'id');
+    }
+    
+    /**
+     * タグ一覧を取得
+     * @return App\Tag
+     */
+    public function createTagList()
+    {
+        return Tag::pluck('tagName', 'id');
     }
 }
