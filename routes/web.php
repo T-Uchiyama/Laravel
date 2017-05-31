@@ -87,3 +87,6 @@ $this->get('articles/getQuerySearch', 'ArticlesController@getQuerySearch')->name
 
 // Home_Avatar
 Route::post('/upload', 'HomeController@upload');
+
+// Mail
+Route::post('/mail', 'MailController@send')->name('mail');

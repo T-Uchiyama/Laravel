@@ -83,6 +83,7 @@
             <div id="sideBar">
                 @if (strstr(Request::url(), 'articles'))
                     @include('sideBar.search')
+                    @include('sideBar.mail')
                 @endif
             </div>
         </div>
