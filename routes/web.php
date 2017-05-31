@@ -82,6 +82,7 @@ $this->get('articles/edit/{id}', 'ArticlesController@getEdit');
 $this->post('articles/edit/{id}', 'ArticlesController@postEdit');
 $this->post('articles/delete/{id}', 'ArticlesController@postDelete');
 $this->post('articles/imageDelete', 'ArticlesController@imageDelete');
+$this->get('articles/getQuerySearch', 'ArticlesController@getQuerySearch')->name('articles.search');
 
 
 // Home_Avatar

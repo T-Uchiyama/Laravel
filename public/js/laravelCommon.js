@@ -60,7 +60,6 @@ $(function()
             $(this).parent('.form-group').find('img').remove();
             $(this).parent('.form-group').find('button').remove();
             location.href = siteUrl;
-            console.log("success");
         })
         .fail(function() {
             console.log("error");
@@ -68,6 +67,5 @@ $(function()
         .always(function() {
             console.log("complete");
         });
-        
     });
 });

@@ -81,6 +81,9 @@
             </div>
 
             <div id="sideBar">
+                @if (strstr(Request::url(), 'articles'))
+                    @include('sideBar.search')
+                @endif
             </div>
         </div>
     </div>

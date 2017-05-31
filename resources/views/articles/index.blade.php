@@ -59,4 +59,7 @@
         </div>
     </article>
     @endforeach
+    <div class="paginate">
+        {{ $articles->appends(Request::only('q'))->links() }}
+    </div>
 @endsection

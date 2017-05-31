@@ -36,19 +36,8 @@ class ArticlesController extends Controller
      */
     public function getIndex()
     {
-        $articles = $this->article->all();
-        $attachments = Attachment::where('model', 'Article')->get();
-        
-        /* サムネイルに表示するのは一件のため複数登録されたものはここでは削除 */
-        $tmp = [];
-        $uniqueArray = [];
-        foreach ($attachments as $attachment) {
-           if (!in_array($attachment['foreign_key'], $tmp)) {
-              $tmp[] = $attachment['foreign_key'];
-              $uniqueArray[] = $attachment;
-           }
-        }
-        $attachments = $uniqueArray;
+        $articles = $this->article->paginate(10);
+        $attachments = $this->createAttachmentList();
         $categories =  $this->createCategoryList();
         $tags = $this->createTagList();
         
@@ -214,5 +203,47 @@ class ArticlesController extends Controller
     public function createTagList()
     {
         return Tag::pluck('tagName', 'id');
+    }
+    
+    /**
+     * 画像一覧を取得
+     * @return App\Attachment
+     */
+    public function createAttachmentList()
+    {
+        $attachments = Attachment::where('model', 'Article')->get();
+        
+        /* サムネイルに表示するのは一件のため複数登録されたものはここでは削除 */
+        $tmp = [];
+        $uniqueArray = [];
+        foreach ($attachments as $attachment) {
+           if (!in_array($attachment['foreign_key'], $tmp)) {
+              $tmp[] = $attachment['foreign_key'];
+              $uniqueArray[] = $attachment;
+           }
+        }
+        return $attachments = $uniqueArray;
+        
+    }
+    
+    /**
+     * 検索文字を取得しクエリを用い検索結果の表示
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getQuerySearch()
+    {    
+        $query = Input::get('q');
+        if ($query) {
+            $articles = Article::where('title', 'LIKE', "%$query%")
+                                ->orWhere('body', 'LIKE', "%$query%")
+                                ->paginate(10);
+        } else {
+            $articles = Article::paginate(10);
+        }
+        $attachments = $this->createAttachmentList();
+        $categories =  $this->createCategoryList();
+        $tags = $this->createTagList();
+        
+        return view('articles.index', compact('articles', 'attachments', 'categories', 'tags'));
     }
 }
