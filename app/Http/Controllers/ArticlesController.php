@@ -246,4 +246,23 @@ class ArticlesController extends Controller
         
         return view('articles.index', compact('articles', 'attachments', 'categories', 'tags'));
     }
+    
+    /**
+     * 新規タグ作成
+     */
+    public function addTag()
+    {
+        $this->autoRender = false;
+        
+        $tagName =  array(
+            'tagName' => Input::get('tagName')
+        );
+        $tag = new Tag();
+        $tag->fill($tagName);
+
+        if ($tag->save()) {
+            return Response::json('タグの追加に成功しました。');
+        }
+        exit;
+    }
 }

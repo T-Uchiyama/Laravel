@@ -50,6 +50,12 @@
         @endforeach
     </div>
 
+    <div class="form-group">
+        <label>新規タグ作成 : </label>
+        {!! Form::text('tagName', null, ['class' => 'form-control']) !!}
+        <button type="button" class="btn btn-default" id="AddTag">タグの追加</button>
+    </div>
+
     <div id="fileUploader">
         <div class="form-group">
             {!! Form::label('file', '画像アップロード', ['class' => 'control-label']) !!}

@@ -68,4 +68,28 @@ $(function()
             console.log("complete");
         });
     });
+    
+    $('#article').on('click', '#AddTag', function() 
+    {    
+        var tagName = $(this).parent('.form-group').find('.form-control').val();
+        var siteUrl = window.location.href;
+        
+        $.ajax({
+            url: '/articles/addTag',
+            type: 'POST',
+            dataType: 'json',
+            data: {tagName: tagName}
+        })
+        .done(function(msg) {
+            alert(msg);
+            location.href = siteUrl;
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    });
 });
