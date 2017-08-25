@@ -38,4 +38,11 @@
             @endforeach
         @endif
     </div>
+    
+    <hr />
+    <h3>コメント一覧</h3>
+    @foreach($article->comments as $single_comment)
+        <h4>{{ $single_comment->commenter }}</h4>
+        <p>{{ $single_comment->comment }}</p><br />
+    @endforeach
 @endsection
