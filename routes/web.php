@@ -91,3 +91,6 @@ Route::post('/upload', 'HomeController@upload');
 
 // Mail
 Route::post('/mail', 'MailController@send')->name('mail');
+
+//Comment
+Route::resource('comment', 'CommentsController');
